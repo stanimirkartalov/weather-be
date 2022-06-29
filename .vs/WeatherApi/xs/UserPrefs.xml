@@ -1,33 +1,31 @@
 ﻿<Properties StartupConfiguration="{C3DA9A69-4FDB-4D5F-8C7C-00325E8B786E}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="TodoApi/Models/Request/SetSettings.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TodoApi/Libralies/ForecastCreator.cs">
     <Files>
       <File FileName="TodoApi/WeatherForecast.cs" Line="11" Column="70" />
       <File FileName="TodoApi/Startup.cs" Line="56" Column="63" />
       <File FileName="TodoApi/Program.cs" Line="1" Column="1" />
       <File FileName="TodoApi/Properties/launchSettings.json" />
-      <File FileName="TodoApi/Models/WeatherContext.cs" Line="89" Column="16" />
+      <File FileName="TodoApi/Models/WeatherContext.cs" Line="22" Column="48" />
       <File FileName="TodoApi/appsettings.json" Line="11" Column="5" />
       <File FileName="TodoApi/Models/Location.cs" Line="3" Column="1" />
       <File FileName="TodoApi/Models/Reading.cs" Line="10" Column="8" />
-      <File FileName="TodoApi/Controllers/WeatherForecastController.cs" Line="61" Column="85" />
+      <File FileName="TodoApi/Controllers/WeatherForecastController.cs" Line="46" Column="1" />
       <File FileName="TodoApi/Services/WeatherStationService.cs" Line="10" Column="2" />
-      <File FileName="TodoApi/Libralies/ForecastCreator.cs" Line="73" Column="15" />
+      <File FileName="TodoApi/Libralies/ForecastCreator.cs" Line="20" Column="26" />
       <File FileName="TodoApi/web.config" Line="4" Column="61" />
       <File FileName="TodoApi/appsettings.Development.json" Line="1" Column="1" />
       <File FileName="TodoApi/Models/Settings.cs" Line="9" Column="6" />
-      <File FileName="TodoApi/Models/Request/SetSettings.cs" Line="8" Column="20" />
+      <File FileName="TodoApi/Models/Request/SetSettings.cs" Line="6" Column="8" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="TodoApi" expanded="True">
-            <Node name="TodoApi" expanded="True">
+          <Node name="WeatherApi" expanded="True">
+            <Node name="TodoApi" expanded="True" selected="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Libralies" expanded="True" />
               <Node name="Models" expanded="True">
-                <Node name="Request" expanded="True">
-                  <Node name="SetSettings.cs" selected="True" />
-                </Node>
+                <Node name="Request" expanded="True" />
               </Node>
               <Node name="appsettings.json" expanded="True" />
             </Node>
@@ -36,7 +34,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.TodoApi PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.ItemProperties.WeatherApi PreferredExecutionTarget="/Applications/Safari.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

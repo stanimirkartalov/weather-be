@@ -11,10 +11,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using TodoApi.Models;
+using WeatherApi.Models;
 
 
-namespace TodoApi
+namespace WeatherApi
 {
     public class Startup
     {
@@ -32,6 +32,7 @@ namespace TodoApi
             services.AddDbContextPool<weatherContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddControllers();
+            services.AddCors();
             //  services.Add(new ServiceDescriptor(typeof(WeatherContext), new WeatherContext(Configuration.GetConnectionString("DefaultConnection"))));
         }
 
@@ -46,6 +47,13 @@ namespace TodoApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true) // allow any origin
+                                                        //.WithOrigins("https://localhost:44351")); // Allow only this origin can also have multiple origins separated with comma
+                    .AllowCredentials()); // allow credentials
 
             app.UseAuthorization();
 

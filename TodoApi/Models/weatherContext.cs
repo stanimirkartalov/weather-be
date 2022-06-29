@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace TodoApi.Models
+namespace WeatherApi.Models
 {
     public partial class weatherContext : DbContext
     {
@@ -19,6 +19,7 @@ namespace TodoApi.Models
 
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<Reading> Readings { get; set; }
+        public virtual DbSet<Settings> Settings { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -73,6 +74,19 @@ namespace TodoApi.Models
                     .HasForeignKey(d => d.LocationId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("readings_locations");
+            });
+
+            modelBuilder.Entity<Settings>(entity =>
+            {
+                entity.ToTable("settings");
+
+                entity.Property(e => e.Id)
+                    .HasColumnType("int unsigned")
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Ip)
+                    .HasMaxLength(256)
+                    .HasColumnName("ip");
             });
 
             OnModelCreatingPartial(modelBuilder);

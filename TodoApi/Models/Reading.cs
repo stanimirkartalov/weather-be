@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace TodoApi.Models
+namespace WeatherApi.Models
 {
     public partial class Reading
     {

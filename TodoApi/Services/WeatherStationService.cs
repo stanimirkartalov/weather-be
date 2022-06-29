@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System;
-namespace TodoApi.Services
+namespace WeatherApi.Services
 {
     public class WeatherStationService
     {

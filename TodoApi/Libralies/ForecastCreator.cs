@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WeatherApi.Models;
 
-namespace TodoApi.Libralies
+namespace WeatherApi.Libralies
 {
     public class ForecastCreator
     {
@@ -10,20 +11,22 @@ namespace TodoApi.Libralies
         {
         }
 
-        public IList<Models.Reading> makeForecast(IList<Models.Reading> list)
+        public IList<Reading> makeForecast(IList<Reading> list)
         {
             //get direction
             int direction = getDirection(list);
             int coefficient = getCoefficient(list);
             //interpolate
-            Models.Reading today = list.Last();
-            Models.Reading tomorrow = interpolate(direction, coefficient, today);
-            Models.Reading afterTomorrow = interpolate(direction, coefficient, tomorrow);
+            Reading today = list.Last();
+            Reading tomorrow = interpolate(direction, coefficient, today);
+            Reading afterTomorrow = interpolate(direction, coefficient, tomorrow);
 
-            IList<Models.Reading> result = new List<Models.Reading>();
-            result.Add(today);
-            result.Add(tomorrow);
-            result.Add(afterTomorrow);
+            IList<Reading> result = new List<Reading>
+            {
+                today,
+                tomorrow,
+                afterTomorrow
+            };
 
             return result;
         }
@@ -32,7 +35,7 @@ namespace TodoApi.Libralies
         {
             //Temperature
             //get last
-            Models.Reading lastDay = list.Last();
+            Reading lastDay = list.Last();
             double? lastDayValue = lastDay.Temperature;
             list.Remove(lastDay);
 
@@ -46,11 +49,11 @@ namespace TodoApi.Libralies
 
         }
 
-        protected int getCoefficient(IList<Models.Reading> list)
+        protected int getCoefficient(IList<Reading> list)
         {
             //AthmosphericPreasure
             //get last
-            Models.Reading lastDay = list.Last();
+            Reading lastDay = list.Last();
         double? lastDayValue = lastDay.AthmosphericPreasure;
         list.Remove(lastDay);
 
@@ -63,10 +66,10 @@ namespace TodoApi.Libralies
             return 0;
             }
 
-        protected Models.Reading interpolate(int direction, int coefficient, Models.Reading original)
+        protected Reading interpolate(int direction, int coefficient, Reading original)
         {
 
-            return new Models.Reading()
+            return new Reading()
             {
                 Temperature = original.Temperature + direction + coefficient,
                 AthmosphericPreasure = original.AthmosphericPreasure + 5 * coefficient

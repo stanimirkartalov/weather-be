@@ -5,22 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WeatherApi.Models;
+using WeatherApi.Models.Request;
+using WeatherApi.Services;
 
 namespace EFCoreMySQL.Controllers
-{
+{   
+
     [Route("api/[controller]")]
     [ApiController]
     public class WeatherForecastController : ControllerBase
     {
-        private TodoApi.Models.weatherContext myDbContext;
+        private weatherContext myDbContext;
 
-        public WeatherForecastController(TodoApi.Models.weatherContext context)
+        public WeatherForecastController(weatherContext context)
         {
             myDbContext = context;
         }
 
         [HttpGet]
-        public IList<TodoApi.Models.Reading> Get()
+        public IList<Reading> Get()
         {
             var readings = this.myDbContext.Readings;
             
@@ -29,21 +33,25 @@ namespace EFCoreMySQL.Controllers
 
         [HttpGet]
         [Route("forecast")]
-        public IList<TodoApi.Models.Reading> Forecast()
+        public IList<Reading> Forecast()
         {
             var readings = this.myDbContext.Readings;
-            TodoApi.Libralies.ForecastCreator forecastCreator = new TodoApi.Libralies.ForecastCreator();
+            WeatherApi.Libralies.ForecastCreator forecastCreator = new WeatherApi.Libralies.ForecastCreator();
             return forecastCreator.makeForecast(readings.ToList());
         }
 
         [HttpPost]
-        public async Task<TodoApi.Models.Reading> Post()
+        public async Task<Reading> Post()
         {
-            TodoApi.Services.WeatherStationService service = new TodoApi.Services.WeatherStationService();
-            String str = await service.GetAsync("http://192.168.0.105/data");
+            WeatherStationService service = new WeatherStationService();
+            Settings settings = this.myDbContext.Settings.Find((uint)1);
+            if (settings == null)
+            {
+                throw new Exception("Settings not set - send an IP");
+            }
+            String str = await service.GetAsync(settings.Ip + "/data");
             string[] values = str.Split("\r\n");
-            //TodoApi.Models.Location location = this.myDbContext.Locations.FirstOrDefault(l => l.Name == "Plovdiv");
-            TodoApi.Models.Reading reading = new TodoApi.Models.Reading
+            Reading reading = new Reading
             {
                 Humidity = Convert.ToDouble(values[4]),
                 Lightness = Convert.ToDouble(values[0]),
@@ -54,6 +62,31 @@ namespace EFCoreMySQL.Controllers
             this.myDbContext.Readings.Add(reading);
             this.myDbContext.SaveChanges();
             return reading;
+        }
+
+        [HttpPost]
+        [Route("settings")]
+        public Settings SetSettings([FromBody] SetSettings s)
+        {
+            bool exists = this.myDbContext.Settings.Any(x => x.Id == 1);
+
+            Settings settings = new()
+            {
+                Id = 1,
+                Ip = s.Ip
+            };
+
+            if (exists)
+            {
+                this.myDbContext.Settings.Update(settings);
+            }
+            else
+            {
+                this.myDbContext.Settings.Add(settings);
+            }
+
+            this.myDbContext.SaveChanges();
+            return settings;
         }
     }
 }

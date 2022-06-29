@@ -18,11 +18,13 @@
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
     <None Remove="Services\" />
     <None Remove="Libralies\" />
+    <None Remove="Models\Request\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models 2\" />
     <Folder Include="Services\" />
     <Folder Include="Libralies\" />
+    <Folder Include="Models\Request\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
